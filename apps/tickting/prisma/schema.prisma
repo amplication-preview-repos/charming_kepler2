@@ -17,3 +17,21 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Ticket {
+  content   String
+  createdAt DateTime     @default(now())
+  id        String       @id @default(cuid())
+  status    TicketStatus @relation(fields: [status], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  status    String       @unique
+  title     String
+  updatedAt DateTime     @updatedAt
+}
+
+model TicketStatus {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  tickets   Ticket?
+  title     String   @unique
+  updatedAt DateTime @updatedAt
+}
